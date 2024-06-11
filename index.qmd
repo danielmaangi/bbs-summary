@@ -1,0 +1,231 @@
+---
+params:
+  county: null
+  survey_name: "Biobehavioral Survey"
+  population: "Key Populations"
+title: "BIOBEHAVIORAL SURVEY AMONG KEY POPULATIONS IN `r params$county` , KENYA, 2024"
+format: docx
+css: custom.css
+authors:
+    name: Norah Jones
+    affiliation: The University
+    roles: writing
+    corresponding: true
+bibliography: references.bib
+---
+
+```{r}
+#| message: false
+#| results: hide
+#| echo: false
+#| warning: false
+
+
+county <- ifelse(is.null(params$county), 'ALL', params$county)
+survey_name <- params$survey_name
+population <- params$population
+county
+```
+
+
+```{r}
+#| message: false
+#| results: hide
+#| echo: false
+#| warning: false
+
+library(tidyverse)
+library(readxl)
+library(scales)
+library(DT)
+library(gt)
+library(haven)
+library(rio)
+library(janitor)
+library(data.table)
+library(sjlabelled)
+library(sjmisc)
+library(ggtext)
+library(scales)
+library(prismatic)
+library(gtsummary)
+library(survey)
+library(srvyr)
+library(psych)
+library(extrafont)
+library(likert)
+library(broom)
+library(prettyunits)
+library(tidytext)
+```
+
+```{r}
+#| message: false
+#| results: hide
+#| echo: false
+#| warning: false
+
+theme_set(
+  theme_minimal(base_family = "Arial") +
+    theme(plot.title = element_text(hjust = 0.5),
+          panel.grid.major = element_blank(),
+          panel.grid.minor = element_blank(),
+          axis.title.x = element_blank(),
+          axis.title.y = element_blank())
+)
+```
+
+
+```{r}
+#| message: false
+#| results: hide
+#| echo: false
+#| warning: false
+
+county <- params$county
+
+basic_info <- rio::import("data/Data Template.xlsx", sheet = "SURVEY_INFO") |>
+  filter(COUNTY == county)
+
+sample_size <- rio::import("data/Data Template.xlsx", sheet = "SAMPLE_SIZE")|>
+  filter(COUNTY == county)
+
+response_rates <- rio::import("data/Data Template.xlsx", sheet = "RESPONSE_RATES")|>
+  filter(COUNTY == county)
+
+prev_supp_pop <- rio::import("data/Data Template.xlsx", sheet = "PREVALENCE_SUPPRESSION_POP")|>
+  filter(COUNTY == county)
+
+respondent_dist <- rio::import("data/Data Template.xlsx", sheet = "RESPONDENT_DISTRIBUTION")|>
+  filter(COUNTY == county)
+
+prev_supp_age <- rio::import("data/Data Template.xlsx", sheet = "PREVALENCE_SUPPRESSION_AGE")|>
+  filter(COUNTY == county)
+
+unconditional_95s <- rio::import("data/Data Template.xlsx", sheet = "UNCONDITIONAL_95_95_95")|>
+  filter(COUNTY == county)
+
+conditional_95s <- rio::import("data/Data Template.xlsx", sheet = "CONDITIONAL_95_95_95")|>
+  filter(COUNTY == county)
+
+sti_data <- rio::import("data/Data Template.xlsx", sheet = "STI_PREVALENCE")|>
+  filter(COUNTY == county)
+
+```
+
+
+## BACKGROUND
+
+The `r survey_name` among `r population` was conducted between (INSERT MONTH/YEAR) and (INSERT MONTH/YEAR) in (LIST SURVEY SITES) to estimate HIV prevalence, viral load suppression among people living with HIV, progress toward the Joint United Nations Programme on HIV/AIDS (UNAIDS) 95-95-95 HIV targets and the number of (INSERT KEY POPULATION) in {county name}. The surveys sampled a total of (INSERT TOTAL NUMBER OF PARTICIPANTS) (INSERT KEY POPULATION) using (INSERT SAMPLING METHODOLOGY (e.g., Respondent Driven Sampling (RDS)): (INSERT NUMBER OF PARTICIPANTS BY SURVEY SITE). IF APPLICABLE: Each survey site’s data was weighted using self-reported network size and Gile’s Sequential Sampling in RDS-Analyst. The survey was conducted by (INSERT LEAD ORGANIZATION/INSTITUTION) and (INSERT RELEVANT MOH) with funding from the U.S. President’s Emergency Plan for AIDS Relief (PEPFAR) and technical assistance provided by the U.S. Centers for Disease Control and Prevention (CDC).
+
+
+## OBJECTIVES
+
+- Estimate the prevalence of HIV among (INSERT KEY POPULATION) in (INSERT SURVEY COUNTY)
+- Estimate viral load suppression (<200 copies/mL) among ((INSERT KEY POPULATION) in (INSERT SURVEY COUNTY)
+- Estimate progress toward UNAIDS 95-95-95 targets among (INSERT KEY POPULATION) in (INSERT SURVEY COUNTY)
+- Estimate the population size of (INSERT KEY POPULATION) in (INSERT SURVEY COUNTY)
+
+## SURVEY SITES AND SAMPLE SIZE
+Each survey site’s data was weighted using self-reported network size and Gile’s Sequential Sampling in RDS-Analyst.  
+
+```{r}
+#| message: false
+#| echo: false
+#| warning: false
+
+# Generate GT table
+table <- sample_size %>%
+  filter(COUNTY == params$survey_name) %>%
+  gt() %>%
+  tab_header(
+    title = "Typology Data"
+  ) %>%
+opt_table_font(
+    font = list(
+      google_font(name = "Arial")
+    )
+  ) |>
+tab_options(table.width = pct(100), 
+            data_row.padding = px(1))
+
+# Print the table
+table
+
+```
+
+
+Each survey site’s data was weighted using self-reported network size and Gile’s Sequential Sampling in RDS-Analyst.  
+
+```{r}
+#| message: false
+#| echo: false
+#| warning: false
+
+
+# Create additional information as separate data frame
+additional_info <- data.frame(
+  `INCLUSION CRITERIA` = "INSERT INCLUSION CRITERIA FOR SURVEY",
+  `HIV TESTING METHODS` = "HIV testing was conducted using a serological rapid diagnostic testing algorithm based on (INSERT COUNTRY)’s national guidelines (INSERT CITATION AS FOOTNOTE)."
+)
+
+additional_info_table <- gt(additional_info) %>%
+  tab_header(
+    title = "Additional Information"
+  ) %>%
+  opt_table_font(
+    font = list(
+      google_font(name = "Arial")
+    )
+  ) |>
+tab_options(table.width = pct(100), 
+            data_row.padding = px(1))
+
+additional_info_table
+```
+
+## HIV PREVALENCE, VIRAL LOAD SUPPRESSSION AND POPULATION SIZE ESTIMATE, INBY COUNTY, BY TYPOLOGY X 
+
+Among (INSERT KEY POPULATION) aged (INSERT AGE CRITERIA) who (INSERT ANY OTHER ELIGIBILITY CRITERIA), (INSERT DESCRIPTION OF DATA (e.g., HIV prevalence was similar across survey cities. TypologySurvey Site 1 has an estimated HIV prevalence of XX.X% and Survey Sitetypology 2 had an estimated HIV prevalence of XX.X%.)). 
+
+Population size estimates (PSE) for each typology, shown in the table below, were derived using (insert method(s)).
+
+
+```{r}
+#| message: false
+#| echo: false
+#| warning: false
+
+# Create a data frame with the data
+data <- data.frame(
+  Typology = c("FSW", "MSM", "PWID", "TG"),
+  `HIV Prevalence % (95% CI)` = c("XX.X (XX.X–XX.X)", "XX.X (XX.X–XX.X)", "XXXX (XXXX–XXXX)", "XXXX (XXXX–XXXX)"),
+  `Viral Load Suppression n (95% CI) *` = c("XXXX (XXXX–XXXX)", "XXXX (XXXX–XXXX)", "XXXX (XXXX–XXXX)", "XXXX (XXXX–XXXX)"),
+  `Consensus Population Size Estimate n (95% CI) *` = c("XXXX (XXXX–XXXX)", "XXXX (XXXX–XXXX)", "XXXX (XXXX–XXXX)", "XXXX (XXXX–XXXX)")
+)
+
+# Format the table using gt
+gt_table <- gt(data) %>%
+  fmt_missing(
+    columns = everything(),
+    missing_text = "NA"
+  ) %>%
+  tab_options(
+    table.font.size = 12,
+    table.width = pct(100),
+    heading.title.font.size = 14,
+    column_labels.font.size = 12
+  )%>%
+  tab_options(table.width = pct(100), 
+            data_row.padding = px(1))
+
+# Print the table
+gt_table
+
+```
+
+
+# FSW AGE DISTRIBUTION IN COUNTY X BY SURVEY SITE 
+
+
+
