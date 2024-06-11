@@ -1,6 +1,6 @@
 ---
 params:
-  county: null
+  county: "NAIROBI"
   survey_name: "Biobehavioral Survey"
   population: "Key Populations"
 title: "BIOBEHAVIORAL SURVEY AMONG KEY POPULATIONS IN `r params$county` , KENYA, 2024"
@@ -12,6 +12,7 @@ authors:
     roles: writing
     corresponding: true
 bibliography: references.bib
+notebook-links: false
 ---
 
 ```{r}
