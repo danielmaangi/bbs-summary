@@ -28,7 +28,6 @@ population <- params$population
 county
 ```
 
-
 ```{r}
 #| message: false
 #| results: hide
@@ -76,14 +75,11 @@ theme_set(
 )
 ```
 
-
 ```{r}
 #| message: false
 #| results: hide
 #| echo: false
 #| warning: false
-
-county <- params$county
 
 basic_info <- rio::import("data/Data Template.xlsx", sheet = "SURVEY_INFO") |>
   filter(COUNTY == county)
@@ -114,21 +110,20 @@ sti_data <- rio::import("data/Data Template.xlsx", sheet = "STI_PREVALENCE")|>
 
 ```
 
-
 ## BACKGROUND
 
 The `r survey_name` among `r population` was conducted between (INSERT MONTH/YEAR) and (INSERT MONTH/YEAR) in (LIST SURVEY SITES) to estimate HIV prevalence, viral load suppression among people living with HIV, progress toward the Joint United Nations Programme on HIV/AIDS (UNAIDS) 95-95-95 HIV targets and the number of (INSERT KEY POPULATION) in {county name}. The surveys sampled a total of (INSERT TOTAL NUMBER OF PARTICIPANTS) (INSERT KEY POPULATION) using (INSERT SAMPLING METHODOLOGY (e.g., Respondent Driven Sampling (RDS)): (INSERT NUMBER OF PARTICIPANTS BY SURVEY SITE). IF APPLICABLE: Each survey site’s data was weighted using self-reported network size and Gile’s Sequential Sampling in RDS-Analyst. The survey was conducted by (INSERT LEAD ORGANIZATION/INSTITUTION) and (INSERT RELEVANT MOH) with funding from the U.S. President’s Emergency Plan for AIDS Relief (PEPFAR) and technical assistance provided by the U.S. Centers for Disease Control and Prevention (CDC).
 
-
 ## OBJECTIVES
 
-- Estimate the prevalence of HIV among (INSERT KEY POPULATION) in (INSERT SURVEY COUNTY)
-- Estimate viral load suppression (<200 copies/mL) among ((INSERT KEY POPULATION) in (INSERT SURVEY COUNTY)
-- Estimate progress toward UNAIDS 95-95-95 targets among (INSERT KEY POPULATION) in (INSERT SURVEY COUNTY)
-- Estimate the population size of (INSERT KEY POPULATION) in (INSERT SURVEY COUNTY)
+-   Estimate the prevalence of HIV among (INSERT KEY POPULATION) in (INSERT SURVEY COUNTY)
+-   Estimate viral load suppression (\<200 copies/mL) among ((INSERT KEY POPULATION) in (INSERT SURVEY COUNTY)
+-   Estimate progress toward UNAIDS 95-95-95 targets among (INSERT KEY POPULATION) in (INSERT SURVEY COUNTY)
+-   Estimate the population size of (INSERT KEY POPULATION) in (INSERT SURVEY COUNTY)
 
 ## SURVEY SITES AND SAMPLE SIZE
-Each survey site’s data was weighted using self-reported network size and Gile’s Sequential Sampling in RDS-Analyst.  
+
+Each survey site’s data was weighted using self-reported network size and Gile’s Sequential Sampling in Respondent Driven Sampling.
 
 ```{r}
 #| message: false
@@ -139,14 +134,30 @@ Each survey site’s data was weighted using self-reported network size and Gile
 table <- sample_size %>%
   filter(COUNTY == params$survey_name) %>%
   gt() %>%
-  tab_header(
-    title = "Typology Data"
+  tab_style(
+    style = list(cell_borders(sides = "all", color = "gray", weight = px(1)),
+                 cell_text(weight = "bold", color = "black")),
+    locations = cells_body()
   ) %>%
-opt_table_font(
+  tab_style(
+    style = list(
+      cell_text(weight = "bold", color = "black"),
+      cell_fill(color = "#FFFDD0")
+    ),
+    locations = cells_column_labels(everything())
+  ) %>%
+  tab_style(
+    style = list(
+      cell_text(weight = "bold", color = "black"),
+      cell_fill(color = "#FFFDD0")
+    ),
+    locations = cells_column_spanners()
+  ) %>%
+  opt_table_font(
     font = list(
-      google_font(name = "Arial")
+      google_font(name = "Cambria")
     )
-  ) |>
+  )%>%
 tab_options(table.width = pct(100), 
             data_row.padding = px(1))
 
@@ -154,9 +165,6 @@ tab_options(table.width = pct(100),
 table
 
 ```
-
-
-Each survey site’s data was weighted using self-reported network size and Gile’s Sequential Sampling in RDS-Analyst.  
 
 ```{r}
 #| message: false
@@ -185,12 +193,11 @@ tab_options(table.width = pct(100),
 additional_info_table
 ```
 
-## HIV PREVALENCE, VIRAL LOAD SUPPRESSSION AND POPULATION SIZE ESTIMATE, INBY COUNTY, BY TYPOLOGY X 
+## HIV PREVALENCE, VIRAL LOAD SUPPRESSSION AND POPULATION SIZE ESTIMATE, INBY COUNTY, BY TYPOLOGY X
 
-Among (INSERT KEY POPULATION) aged (INSERT AGE CRITERIA) who (INSERT ANY OTHER ELIGIBILITY CRITERIA), (INSERT DESCRIPTION OF DATA (e.g., HIV prevalence was similar across survey cities. TypologySurvey Site 1 has an estimated HIV prevalence of XX.X% and Survey Sitetypology 2 had an estimated HIV prevalence of XX.X%.)). 
+Among (INSERT KEY POPULATION) aged (INSERT AGE CRITERIA) who (INSERT ANY OTHER ELIGIBILITY CRITERIA), (INSERT DESCRIPTION OF DATA (e.g., HIV prevalence was similar across survey cities. TypologySurvey Site 1 has an estimated HIV prevalence of XX.X% and Survey Sitetypology 2 had an estimated HIV prevalence of XX.X%.)).
 
 Population size estimates (PSE) for each typology, shown in the table below, were derived using (insert method(s)).
-
 
 ```{r}
 #| message: false
@@ -225,8 +232,4 @@ gt_table
 
 ```
 
-
-# FSW AGE DISTRIBUTION IN COUNTY X BY SURVEY SITE 
-
-
-
+# FSW AGE DISTRIBUTION IN COUNTY X BY SURVEY SITE
