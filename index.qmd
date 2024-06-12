@@ -7,8 +7,8 @@ title: "BIOBEHAVIORAL SURVEY AMONG KEY POPULATIONS IN `r params$county` , KENYA,
 format: docx
 css: custom.css
 authors:
-    name: Norah Jones
-    affiliation: The University
+    name: BBS Team
+    affiliation: NASCOP, UCSF, CDC, USAID
     roles: writing
     corresponding: true
 bibliography: references.bib
