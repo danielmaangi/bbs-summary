@@ -1,3 +1,5 @@
+library(quarto)
+
 # List of counties
 counties <- c("NAIROBI", "MOMBASA")
 

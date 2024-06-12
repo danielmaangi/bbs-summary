@@ -108,6 +108,19 @@ conditional_95s <- rio::import("data/Data Template.xlsx", sheet = "CONDITIONAL_9
 sti_data <- rio::import("data/Data Template.xlsx", sheet = "STI_PREVALENCE")|>
   filter(COUNTY == county)
 
+# Lab data
+lab_data <- read_csv("data/BBS_HTS_SUMMARY_DATA.csv") |>
+  mutate(
+    KP_TOPOLOGY = case_when(
+      COUNTY == "Trans Nzoia" & KP_TOPOLOGY == "NONE" ~ "FSW",
+      TRUE ~ KP_TOPOLOGY
+    ),
+    COUNTY = case_when(
+      COUNTY == "Trans Nzoia" ~ "Nakuru",
+      TRUE ~ COUNTY
+    )
+  )
+
 ```
 
 ## BACKGROUND
