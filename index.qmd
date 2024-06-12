@@ -180,7 +180,7 @@ table <- sample_size %>%
     SAMPLE_SIZE = "Sample size"
   ) %>%
 tab_options(table.width = pct(100), 
-            data_row.padding = px(1))
+            data_row.padding = px(2))
 
 # Print the table
 table
@@ -249,7 +249,7 @@ response_rates %>%
     BLOOD_COLLECTED = "Consented for Blood"
   ) %>%
 tab_options(table.width = pct(100), 
-            data_row.padding = px(1))
+            data_row.padding = px(2))
 
 ```
 
@@ -279,6 +279,15 @@ prev_supp_pop %>%
          ) %>%
   select(TYPOLOGY, `HIV Prevalence`, `Viral Load Suppression`, `Consensus Population Size Estimate`)%>%
   gt() %>%
+  cols_label(
+    `HIV Prevalence` = md("HIV Prevalence <br> (95% CI)"),
+    `Viral Load Suppression` = md("Viral Load Suppression <br> (95% CI)"),
+    `Consensus Population Size Estimate` = md("Consensus Population Size Estimate <br> (95% CI)")
+  )%>%
+  cols_align(
+    align = c("center"),
+    columns = -c("TYPOLOGY")
+  )%>%
   tab_style(
     style = list(cell_borders(sides = "all", color = "gray", weight = px(1)),
                  cell_text(weight = "bold", color = "black")),
@@ -304,7 +313,10 @@ prev_supp_pop %>%
     )
   )%>%
 tab_options(table.width = pct(100), 
-            data_row.padding = px(1))
+            data_row.padding = px(2)) %>%
+  tab_footnote(
+    footnote = md("**CI**: Confidence Interval (except for population size estimate: Credible Interval)")
+  )
 
 ```
 
@@ -318,17 +330,23 @@ tab_options(table.width = pct(100),
 #| message: false
 #| echo: false
 #| warning: false
+#| fig-height: 6
+#| fig-width: 8
 
 
-library(dplyr)
-library(ggplot2)
-library(scales)
+library(RColorBrewer)
+
+# Define the order of the age groups
+age_order <- c("18-24", "25-34", "35-44", "45-54", "55+")
+
+# Choose a color from RColorBrewer
+bar_color <- brewer.pal(9, "Set1")[2]  # You can change the palette and index as needed
 
 # Filter and prepare the data
 filtered_data <- respondent_dist %>%
   filter(COUNTY == county) %>%
   group_by(COUNTY, TYPOLOGY) %>%
-  arrange(AGE) %>%
+  arrange(factor(AGE, levels = age_order)) %>%
   mutate(TOTAL_PARTICIPANTS_TYP = sum(NUMBER_OF_PARTICIPANTS)) %>%
   ungroup() %>%
   mutate(PERCENTAGE = (NUMBER_OF_PARTICIPANTS / TOTAL_PARTICIPANTS_TYP)) %>%
@@ -336,14 +354,37 @@ filtered_data <- respondent_dist %>%
   mutate(label_text = paste0(label_percent(accuracy = 1)(PERCENTAGE), "\n(", NUMBER_OF_PARTICIPANTS, ")")) %>%
   filter(!is.na(NUMBER_OF_PARTICIPANTS))
 
+# Filter and prepare the data
+filtered_data <- respondent_dist %>%
+  filter(COUNTY == county) %>%
+  group_by(COUNTY, TYPOLOGY) %>%
+  arrange(factor(AGE, levels = age_order)) %>%
+  mutate(TOTAL_PARTICIPANTS_TYP = sum(NUMBER_OF_PARTICIPANTS)) %>%
+  ungroup() %>%
+  mutate(PERCENTAGE = (NUMBER_OF_PARTICIPANTS / TOTAL_PARTICIPANTS_TYP)) %>%
+  select(COUNTY, TYPOLOGY, AGE, NUMBER_OF_PARTICIPANTS, PERCENTAGE) %>%
+  mutate(label_text = paste0(label_percent(accuracy = 1)(PERCENTAGE), "\n(", NUMBER_OF_PARTICIPANTS, ")")) %>%
+  filter(!is.na(NUMBER_OF_PARTICIPANTS))
+
+# Calculate the maximum percentage and add a buffer
+max_percentage <- max(filtered_data$PERCENTAGE, na.rm = TRUE)
+buffer <- 0.15  # You can adjust the buffer value as needed
+
 # Check if there are records to plot
 if (nrow(filtered_data) > 0) {
   # Create the plot
-  ggplot(filtered_data, aes(x = reorder(AGE, PERCENTAGE), y = PERCENTAGE)) +
-    scale_y_continuous(labels = scales::label_percent(accuracy = 1)) +
-    geom_bar(stat = "identity", fill = "skyblue") +
+  ggplot(filtered_data, aes(x = factor(AGE, levels = age_order), y = PERCENTAGE)) +
+    scale_y_continuous(labels = scales::label_percent(accuracy = 1), limits = c(0, max_percentage + buffer)) +
+    geom_bar(stat = "identity", fill = bar_color) +
     geom_text(aes(label = label_text), vjust = -0.5, color = "black", size = 3.5) +
-    facet_wrap(~ TYPOLOGY, scales = "fixed")
+    facet_wrap(~ TYPOLOGY, scales = "fixed") +
+    labs(x = "Age",
+         y = "Percentage") +
+    theme_minimal() +
+    theme(
+      strip.background = element_rect(fill = "lightblue", color = "black"),
+      strip.text = element_text(face = "bold", size = 14)
+    )
 } else {
   message("No records to plot")
 }
