@@ -1,0 +1,35 @@
+
+
+```{r}
+#| message: false
+#| echo: false
+#| warning: false
+
+# Load necessary libraries
+library(ggplot2)
+library(dplyr)
+
+# Sample data
+data <- data.frame(
+  age_group = rep(c('0-14', '15-24', '25-34', '35-44', '45-54', '55-64', '65+'), each = 3),
+  key_population = rep(c('MSM', 'FSW', 'PWID'), times = 7),
+  viral_load_suppression = runif(21, 50, 100)
+)
+
+# Plotting
+ggplot(data, aes(x = age_group, y = viral_load_suppression)) +
+  geom_bar(stat = "identity", position = "dodge", fill = "skyblue") +
+  labs(
+    title = "Viral Load Suppression by Age Group and Key Population Type",
+    x = "Age Group",
+    y = "Viral Load Suppression (%)"
+  ) +
+  facet_wrap(~key_population) +
+  theme_minimal() +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1)
+  )
+
+
+```
+
