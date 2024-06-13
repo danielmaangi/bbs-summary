@@ -128,34 +128,54 @@ lab_data <- read_csv("data/BBS_HTS_SUMMARY_DATA.csv") |>
 
 ## BACKGROUND
 
-The `r survey_name` among `r population` was conducted between (INSERT MONTH/YEAR) and (INSERT MONTH/YEAR) in (LIST SURVEY SITES) to estimate HIV prevalence, viral load suppression among people living with HIV, progress toward the Joint United Nations Programme on HIV/AIDS (UNAIDS) 95-95-95 HIV targets and the number of (INSERT KEY POPULATION) in `r county`. The surveys sampled a total of (INSERT TOTAL NUMBER OF PARTICIPANTS) (INSERT KEY POPULATION) using (INSERT SAMPLING METHODOLOGY (e.g., Respondent Driven Sampling (RDS)): (INSERT NUMBER OF PARTICIPANTS BY SURVEY SITE). IF APPLICABLE: Each survey site’s data was weighted using self-reported network size and Gile’s Sequential Sampling in RDS-Analyst. The survey was conducted by (INSERT LEAD ORGANIZATION/INSTITUTION) and (INSERT RELEVANT MOH) with funding from the U.S. President’s Emergency Plan for AIDS Relief (PEPFAR) and technical assistance provided by the U.S. Centers for Disease Control and Prevention (CDC).
+The bio-behavioral survey among key populations, a respondent-driven sampling survey, was conducted from March to June 2024 in nine counties in Kenya – Kajiado, Kiambu, Kilifi, Kisii, Kisumu, Machakos, Mombasa, Nairobi and Nakuru. The survey included female sex workers (FSW), men who have sex with men (MSM), people who inject drugs (PWID) and transgender persons (TG). The survey was powered to measure the impact of the national HIV response among key populations in Kenya and was led by the Ministry of Health through the National AIDS and STI Control Program (NASCOP) and the National HIV Reference Laboratory (NHRL) with technical support from the U.S. Centers for Disease Control and Prevention. The Key Populations Consortium and the Ministry of Health in each county were key collaborators in this survey. The survey was funded jointly by U.S. President’s Emergency Plan for AIDS Relief (PEPFAR) and Global Fund to Fight AIDS, Tuberculosis and Malaria (GFATM) and was implemented by the University of California, San Francisco, Global Programs, Kenya.  
 
 ## OBJECTIVES
 
--   Estimate the prevalence of HIV among `r population` in `r str_to_sentence(county)`
--   Estimate viral load suppression (<200 copies/mL) among `r population` in `r str_to_sentence(county)`
--   Estimate progress toward UNAIDS 95-95-95 targets among `r population` in `r str_to_sentence(county)`
--   Estimate the population size of `r population` in `r str_to_sentence(county)`
+### Primary Objectives
 
-## SURVEY SITES AND SAMPLE SIZE
+- To estimate the proportion of HIV-infected key populations who have suppressed viral load by KP typology and county. 
+- To estimate the prevalence of HIV by KP typology and county. 
+- To estimate HIV incidence by KP typology and county.
+- To examine HIV service uptake (prevention, treatment) and serostatus knowledge among all KP by typology and county 
+- To estimate the proportions of KP who know their HIV status, are on treatment and are virally suppressed (UNAIDS 95-95-95 targets) by KP typology and county
 
-Each survey site’s data was weighted using self-reported network size and Gile’s Sequential Sampling in Respondent Driven Sampling.
+### Secondary objectives
+- To estimate the prevalence of STIs among all KP by typology, county, and HIV status
+- To identify risk factors associated with HIV infection for KP typology by county 
+- To estimate the key population size for KP typology by county
+
+## SURVEY METHODS
+### ENROLLMENT / SAMPLING METHOD 
+
+Potential participants were enrolled in the survey using respondent driven sampling (RDS). For each population typology, seeds were identified by the key population community stakeholders and survey investigators and met the eligibility criteria for the survey. Each seed was provided three coded coupons and instructed to give these coupons to persons in their social circle who are members of the same target population and reside in the same county. Peers receiving these coupons are potential survey participants and continue survey enrollments through coupons and peer enrollment till sample size is met. 
+
+### SURVEY SITES AND SAMPLE SIZE 
+Each county conducted the BBS in different populations shown the table below along with the sample size and the name of survey site [or survey site in shown in the map]. 
 
 ```{r}
 #| message: false
 #| echo: false
 #| warning: false
 
+
 # Generate GT table
 table <- sample_size %>%
   filter(COUNTY == county) %>%
   mutate(COUNTY = str_to_sentence(COUNTY))%>%
+  select(-COUNTY) %>%
+  adorn_totals() %>%
   gt() %>%
   tab_style(
     style = list(cell_borders(sides = "all", color = "gray", weight = px(1)),
                  cell_text(weight = "bold", color = "black")),
     locations = cells_body()
   ) %>%
+  fmt_number(
+      columns = c("SAMPLE_SIZE"),
+      decimals = 0,
+      use_seps = TRUE
+    ) %>%
   tab_style(
     style = list(
       cell_text(weight = "bold", color = "black"),
@@ -176,11 +196,17 @@ table <- sample_size %>%
     )
   )%>%
   cols_label(
+    TYPOLOGY = "Typology",
     SURVEY_SITE = "Survey Site",
     SAMPLE_SIZE = "Sample size"
   ) %>%
-tab_options(table.width = pct(100), 
-            data_row.padding = px(2))
+  cols_width(
+    everything() ~ px(100)
+  )%>%
+tab_options(
+    table.width = pct(100),
+    data_row.padding = px(10), # Increase padding for better readability
+  )
 
 # Print the table
 table
@@ -188,11 +214,20 @@ table
 ```
 
 ## ELIGIBILITY SCREENING
+All potential participants had to be 18 years of age or older, reside in the survey area, able to communicate in Kiswahili or English and are in possession of a valid peer enrolment coupon. The typology specific eligibility criteria are: 
+- FSWs: biologically female; received money or gifts in exchange for sex at least once in the three months prior to interview. 
+- MSM: biologically male; report at least one anal or oral sex act with a biological male in the six months prior to the interview.
+- PWID: men and women; report at least one drug injecting episode for non-medical purposes in the three months prior to interview. 
+- TG persons: people whose gender identity and expression at the time of the interview does not conform to the sex assigned to them at birth. 
 
 
 ## INTERVIEWING
+Potential participants who screened eligible for participating in the survey and consented for survey participation were offered an interview which included demographics, HIV-relevant behaviours, symptoms of HIV/STI, as well as on HIV/STI-related knowledge, attitude, practices, stigma, perceptions, and questions related to mental health or other health-related domains. Results from a few select topics are presented in this report.  
 
 ## BIOMARKER TESTING PROCEDURES
+All consenting participants were offered rapid HIV testing using the national algorithm for HIV diagnosis, and Syphilis testing at the survey site with immediate return of results and linkage to care and treatment. Treatment for syphilis was provided as a part of the survey.  
+
+Testing for Chlamydia Trachomatis, Neisseria Gonorrhea, Hepatitis C, Hepatitis B was done at NHRL and results were returned to the participants at their return visits to the survey sites with linkage to care and treatment.  
 
 
 ## RETURN OF RESULTS
@@ -242,6 +277,7 @@ response_rates %>%
     )
   )%>%
   cols_label(
+    TYPOLOGY = "Typology",
     SCREENED = "Screened",
     ELIGIBLE = "Eligible",
     CONSENTED = "Consented for Interview",
@@ -312,6 +348,9 @@ prev_supp_pop %>%
       google_font(name = "Cambria")
     )
   )%>%
+  cols_label(
+    TYPOLOGY = "Typology"
+  )%>%
 tab_options(table.width = pct(100), 
             data_row.padding = px(2)) %>%
   tab_footnote(
@@ -337,7 +376,7 @@ tab_options(table.width = pct(100),
 library(RColorBrewer)
 
 # Define the order of the age groups
-age_order <- c("18-24", "25-34", "35-44", "45-54", "55+")
+age_order <- unique(respondent_dist$AGE)
 
 # Choose a color from RColorBrewer
 bar_color <- brewer.pal(9, "Set1")[2]  # You can change the palette and index as needed
@@ -395,7 +434,59 @@ if (nrow(filtered_data) > 0) {
 
 ## KEY RESULTS, BY TYPOLOGY
 
-### HIV Prevalence
+### HIV Prevalence by age
+
+```{r}
+#| message: false
+#| echo: false
+#| warning: false
+#| fig-height: 6
+#| fig-width: 8
+
+
+library(RColorBrewer)
+
+# Define the order of the age groups
+age_order <- unique(prev_supp_age$AGE)
+
+# Choose a color from RColorBrewer
+bar_color <- brewer.pal(9, "Set1")[2]  # You can change the palette and index as needed
+
+# Filter and prepare the data
+filtered_data <- prev_supp_age %>%
+  filter(COUNTY == county) %>%
+  filter(!is.na(AGE)) %>%
+  arrange(factor(AGE, levels = age_order)) %>%
+  mutate(label_text = paste0(POSITIVE_PERCENT, 
+                             " (",POSITIVE_PERCENT_LOWER, "-", POSITIVE_PERCENT_UPPER, ")"))
+
+
+
+# Calculate the maximum percentage and add a buffer
+max_percentage <- max(filtered_data$POSITIVE_PERCENT, na.rm = TRUE)
+buffer <- 1  # You can adjust the buffer value as needed
+
+
+# if (nrow(filtered_data) > 0) {
+#   # Create the plot
+#   ggplot(filtered_data, aes(x = factor(AGE, levels = age_order), y = POSITIVE_PERCENT)) +
+#     scale_y_continuous(limits = c(0, max_percentage + buffer)) +
+#     geom_bar(stat = "identity", fill = bar_color) +
+#     geom_text(aes(label = label_text), vjust = -0.5, color = "black", size = 3.5) +
+#     facet_wrap(~ TYPOLOGY, scales = "fixed") +
+#     labs(x = "Age",
+#          y = "Percentage") +
+#     theme_minimal() +
+#     theme(
+#       strip.background = element_rect(fill = "lightblue", color = "black"),
+#       strip.text = element_text(face = "bold", size = 14)
+#     )
+# } else {
+#   message("No records to plot")
+# }
+
+
+```
 
 
 ### Viral Load Suppression
