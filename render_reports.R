@@ -1,4 +1,5 @@
 library(quarto)
+library(tidyverse)
 
 # List of counties
 county_data <- read_csv("data/BBS_HTS_SUMMARY_DATA.csv") |>

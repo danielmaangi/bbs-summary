@@ -1,13 +1,33 @@
+
+merged <- read_csv("data/merged.csv")
+
+waldo::compare(c("a", "b", "c"), c("a", "b"))
+
+compare(c("a", "b", "c"), c("a", "b", "c"))
+
+options(width = 20)
+compare(letters[1:5], letters[1:5])
+
+options(width = 10)
+compare(letters[1:5], letters[1:6])
+
 # Simulated dataset
 data <- data.frame(
-  respondent_id = 1:100,
-  recruiter_id = c(NA, sample(1:99, 99, replace = TRUE)),
-  network_size = sample(1:10, 100, replace = TRUE),
+  id = 1:100,
+  recruiter.id = c(NA, sample(1:99, 99, replace = TRUE)),
+  network.size.variable = sample(1:10, 100, replace = TRUE),
   is_fsw = sample(c(0, 1), 100, replace = TRUE)
 )
 
+library(RDS)
+
 # Create RDS object
-rds_data <- as.rds.data.frame(data, id = "respondent_id", recruiter.id = "recruiter_id", network.size.variable = "network_size")
+rds_data <- as.rds.data.frame(data)
+
+dat <- data.frame(id=c(1,2,3,4,5), recruiter.id=c(2,-1,2,-1,4),
+                  network.size.variable=c(4,8,8,2,3))
+as.rds.data.frame(dat)
+
 
 # Estimate population proportion
 population_estimate <- RDS.II.estimates(rds_data, outcome.variable = "is_fsw")

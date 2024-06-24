@@ -128,30 +128,33 @@ lab_data <- read_csv("data/BBS_HTS_SUMMARY_DATA.csv") |>
 
 ## BACKGROUND
 
-The bio-behavioral survey among key populations, a respondent-driven sampling survey, was conducted from March to June 2024 in nine counties in Kenya – Kajiado, Kiambu, Kilifi, Kisii, Kisumu, Machakos, Mombasa, Nairobi and Nakuru. The survey included female sex workers (FSW), men who have sex with men (MSM), people who inject drugs (PWID) and transgender persons (TG). The survey was powered to measure the impact of the national HIV response among key populations in Kenya and was led by the Ministry of Health through the National AIDS and STI Control Program (NASCOP) and the National HIV Reference Laboratory (NHRL) with technical support from the U.S. Centers for Disease Control and Prevention. The Key Populations Consortium and the Ministry of Health in each county were key collaborators in this survey. The survey was funded jointly by U.S. President’s Emergency Plan for AIDS Relief (PEPFAR) and Global Fund to Fight AIDS, Tuberculosis and Malaria (GFATM) and was implemented by the University of California, San Francisco, Global Programs, Kenya.  
+The bio-behavioral survey among key populations, a respondent-driven sampling survey, was conducted from March to June 2024 in nine counties in Kenya – Kajiado, Kiambu, Kilifi, Kisii, Kisumu, Machakos, Mombasa, Nairobi and Nakuru. The survey included female sex workers (FSW), men who have sex with men (MSM), people who inject drugs (PWID) and transgender persons (TG). The survey was powered to measure the impact of the national HIV response among key populations in Kenya and was led by the Ministry of Health through the National AIDS and STI Control Program (NASCOP) and the National HIV Reference Laboratory (NHRL) with technical support from the U.S. Centers for Disease Control and Prevention. The Key Populations Consortium and the Ministry of Health in each county were key collaborators in this survey. The survey was funded jointly by U.S. President’s Emergency Plan for AIDS Relief (PEPFAR) and Global Fund to Fight AIDS, Tuberculosis and Malaria (GFATM) and was implemented by the University of California, San Francisco, Global Programs, Kenya.
 
 ## OBJECTIVES
 
 ### Primary Objectives
 
-- To estimate the proportion of HIV-infected key populations who have suppressed viral load by KP typology and county. 
-- To estimate the prevalence of HIV by KP typology and county. 
-- To estimate HIV incidence by KP typology and county.
-- To examine HIV service uptake (prevention, treatment) and serostatus knowledge among all KP by typology and county 
-- To estimate the proportions of KP who know their HIV status, are on treatment and are virally suppressed (UNAIDS 95-95-95 targets) by KP typology and county
+-   To estimate the proportion of HIV-infected key populations who have suppressed viral load by KP typology and county.
+-   To estimate the prevalence of HIV by KP typology and county.
+-   To estimate HIV incidence by KP typology and county.
+-   To examine HIV service uptake (prevention, treatment) and serostatus knowledge among all KP by typology and county
+-   To estimate the proportions of KP who know their HIV status, are on treatment and are virally suppressed (UNAIDS 95-95-95 targets) by KP typology and county
 
 ### Secondary objectives
-- To estimate the prevalence of STIs among all KP by typology, county, and HIV status
-- To identify risk factors associated with HIV infection for KP typology by county 
-- To estimate the key population size for KP typology by county
+
+-   To estimate the prevalence of STIs among all KP by typology, county, and HIV status
+-   To identify risk factors associated with HIV infection for KP typology by county
+-   To estimate the key population size for KP typology by county
 
 ## SURVEY METHODS
-### ENROLLMENT / SAMPLING METHOD 
 
-Potential participants were enrolled in the survey using respondent driven sampling (RDS). For each population typology, seeds were identified by the key population community stakeholders and survey investigators and met the eligibility criteria for the survey. Each seed was provided three coded coupons and instructed to give these coupons to persons in their social circle who are members of the same target population and reside in the same county. Peers receiving these coupons are potential survey participants and continue survey enrollments through coupons and peer enrollment till sample size is met. 
+### ENROLLMENT / SAMPLING METHOD
 
-### SURVEY SITES AND SAMPLE SIZE 
-Each county conducted the BBS in different populations shown the table below along with the sample size and the name of survey site [or survey site in shown in the map]. 
+Potential participants were enrolled in the survey using respondent driven sampling (RDS). For each population typology, seeds were identified by the key population community stakeholders and survey investigators and met the eligibility criteria for the survey. Each seed was provided three coded coupons and instructed to give these coupons to persons in their social circle who are members of the same target population and reside in the same county. Peers receiving these coupons are potential survey participants and continue survey enrollments through coupons and peer enrollment till sample size is met.
+
+### SURVEY SITES AND SAMPLE SIZE
+
+Each county conducted the BBS in different populations shown the table below along with the sample size and the name of survey site \[or survey site in shown in the map\].
 
 ```{r}
 #| message: false
@@ -214,30 +217,24 @@ table
 ```
 
 ## ELIGIBILITY SCREENING
-All potential participants had to be 18 years of age or older, reside in the survey area, able to communicate in Kiswahili or English and are in possession of a valid peer enrolment coupon. The typology specific eligibility criteria are: 
-- FSWs: biologically female; received money or gifts in exchange for sex at least once in the three months prior to interview. 
-- MSM: biologically male; report at least one anal or oral sex act with a biological male in the six months prior to the interview.
-- PWID: men and women; report at least one drug injecting episode for non-medical purposes in the three months prior to interview. 
-- TG persons: people whose gender identity and expression at the time of the interview does not conform to the sex assigned to them at birth. 
 
+All potential participants had to be 18 years of age or older, reside in the survey area, able to communicate in Kiswahili or English and are in possession of a valid peer enrolment coupon. The typology specific eligibility criteria are: - FSWs: biologically female; received money or gifts in exchange for sex at least once in the three months prior to interview. - MSM: biologically male; report at least one anal or oral sex act with a biological male in the six months prior to the interview. - PWID: men and women; report at least one drug injecting episode for non-medical purposes in the three months prior to interview. - TG persons: people whose gender identity and expression at the time of the interview does not conform to the sex assigned to them at birth.
 
 ## INTERVIEWING
-Potential participants who screened eligible for participating in the survey and consented for survey participation were offered an interview which included demographics, HIV-relevant behaviours, symptoms of HIV/STI, as well as on HIV/STI-related knowledge, attitude, practices, stigma, perceptions, and questions related to mental health or other health-related domains. Results from a few select topics are presented in this report.  
+
+Potential participants who screened eligible for participating in the survey and consented for survey participation were offered an interview which included demographics, HIV-relevant behaviours, symptoms of HIV/STI, as well as on HIV/STI-related knowledge, attitude, practices, stigma, perceptions, and questions related to mental health or other health-related domains. Results from a few select topics are presented in this report.
 
 ## BIOMARKER TESTING PROCEDURES
-All consenting participants were offered rapid HIV testing using the national algorithm for HIV diagnosis, and Syphilis testing at the survey site with immediate return of results and linkage to care and treatment. Treatment for syphilis was provided as a part of the survey.  
 
-Testing for Chlamydia Trachomatis, Neisseria Gonorrhea, Hepatitis C, Hepatitis B was done at NHRL and results were returned to the participants at their return visits to the survey sites with linkage to care and treatment.  
+All consenting participants were offered rapid HIV testing using the national algorithm for HIV diagnosis, and Syphilis testing at the survey site with immediate return of results and linkage to care and treatment. Treatment for syphilis was provided as a part of the survey.
 
+Testing for Chlamydia Trachomatis, Neisseria Gonorrhea, Hepatitis C, Hepatitis B was done at NHRL and results were returned to the participants at their return visits to the survey sites with linkage to care and treatment.
 
 ## RETURN OF RESULTS
 
-
-## DATA ANALYSIS AND WEIGHTING 
-
+## DATA ANALYSIS AND WEIGHTING
 
 ## POPULATION SIZE ESTIMATES
-
 
 ## KEY RESULTS
 
@@ -291,8 +288,7 @@ tab_options(table.width = pct(100),
 
 ## HIV PREVALENCE, VIRAL LOAD SUPPRESSION AND POPULATION SIZE ESTIMATE, BY TYPOLOGY
 
-Among `r population` aged (INSERT AGE CRITERIA) who (INSERT ANY OTHER ELIGIBILITY CRITERIA), (INSERT DESCRIPTION OF DATA (e.g., HIV prevalence was similar across survey cities. Typology 1 has an estimated HIV prevalence of XX.X% and typology 2 had an estimated HIV prevalence of XX.X%.)).
-Population size estimates (PSE) for each typology, shown in the table below, were derived using (insert method(s)). 
+Among `r population` aged (INSERT AGE CRITERIA) who (INSERT ANY OTHER ELIGIBILITY CRITERIA), (INSERT DESCRIPTION OF DATA (e.g., HIV prevalence was similar across survey cities. Typology 1 has an estimated HIV prevalence of XX.X% and typology 2 had an estimated HIV prevalence of XX.X%.)). Population size estimates (PSE) for each typology, shown in the table below, were derived using (insert method(s)).
 
 ```{r}
 #| message: false
@@ -358,8 +354,6 @@ tab_options(table.width = pct(100),
   )
 
 ```
-
-
 
 ## KEY RESULTS, BY TYPOLOGY
 
@@ -431,7 +425,6 @@ if (nrow(filtered_data) > 0) {
 
 ```
 
-
 ## KEY RESULTS, BY TYPOLOGY
 
 ### HIV Prevalence by age
@@ -488,35 +481,12 @@ buffer <- 1  # You can adjust the buffer value as needed
 
 ```
 
-
 ### Viral Load Suppression
 
 ## PROGRESS TOWARDS 95-95-95
 
 ### Unconditional 95-95-95
 
-
-
-
 ### Conditional 95-95-95
 
-
 ## STI Prevalence
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
