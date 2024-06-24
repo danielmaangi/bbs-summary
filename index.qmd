@@ -218,7 +218,15 @@ table
 
 ## ELIGIBILITY SCREENING
 
-All potential participants had to be 18 years of age or older, reside in the survey area, able to communicate in Kiswahili or English and are in possession of a valid peer enrolment coupon. The typology specific eligibility criteria are: - FSWs: biologically female; received money or gifts in exchange for sex at least once in the three months prior to interview. - MSM: biologically male; report at least one anal or oral sex act with a biological male in the six months prior to the interview. - PWID: men and women; report at least one drug injecting episode for non-medical purposes in the three months prior to interview. - TG persons: people whose gender identity and expression at the time of the interview does not conform to the sex assigned to them at birth.
+All potential participants had to be 18 years of age or older, reside in the survey area, able to communicate in Kiswahili or English and are in possession of a valid peer enrolment coupon. The typology specific eligibility criteria are: 
+
+- FSWs: biologically female; received money or gifts in exchange for sex at least once in the three months prior to interview. 
+
+- MSM: biologically male; report at least one anal or oral sex act with a biological male in the six months prior to the interview. 
+
+- PWID: men and women; report at least one drug injecting episode for non-medical purposes in the three months prior to interview. 
+
+- TG persons: people whose gender identity and expression at the time of the interview does not conform to the sex assigned to them at birth. 
 
 ## INTERVIEWING
 
@@ -226,13 +234,24 @@ Potential participants who screened eligible for participating in the survey and
 
 ## BIOMARKER TESTING PROCEDURES
 
-All consenting participants were offered rapid HIV testing using the national algorithm for HIV diagnosis, and Syphilis testing at the survey site with immediate return of results and linkage to care and treatment. Treatment for syphilis was provided as a part of the survey.
+All consenting participants were offered rapid HIV testing using the national algorithm for HIV diagnosis, and Syphilis testing at the survey site with immediate return of results and linkage to care and treatment. Treatment for syphilis was provided as a part of the survey.  
 
-Testing for Chlamydia Trachomatis, Neisseria Gonorrhea, Hepatitis C, Hepatitis B was done at NHRL and results were returned to the participants at their return visits to the survey sites with linkage to care and treatment.
+Testing for Chlamydia Trachomatis, Neisseria Gonorrhea, Hepatitis C, Hepatitis B was done at NHRL and results were returned to the participants at their return visits to the survey sites with linkage to care and treatment.  
 
-## RETURN OF RESULTS
 
 ## DATA ANALYSIS AND WEIGHTING
+- Prevalence was calculated using all consented individuals with a valid HIV test result in the denominator and individuals with an HIV-positive test results based on the national HIV diagnosis algorithm in the numerator. 
+
+- Viral load suppression was calculated among all individuals who tested HIV positive in the survey. Viral suppression was defined in two ways: 
+<200 and <1000 copies of HIV RNA per milliliter.  
+
+### Status of 95-95-95 targets  
+
+- *1st 95* - Awareness of HIV positive status: Awareness is defined as people living with HIV who disclosed a prior HIV diagnosis and/or had suppressed viral load (<200 or 1000 copies / mL) 
+
+- *2nd 95* – Aware of HIV positive status and on ART: Being on ART is defined as those who disclosed current use of ART and/or had suppressed viral load (<200 or 1000 copies / mL). 
+
+- *3rd 95* – Aware of HIV positive status and on ART and virally suppressed: Viral suppression among people living with HIV who knew their HIV status and were on ART.  
 
 ## POPULATION SIZE ESTIMATES
 
